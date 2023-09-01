@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Definicion de las estructuras que utilizaremos
 typedef struct {
     char titulo[51];
     char autor[51];
@@ -334,16 +335,19 @@ char* get_csv_field(char * tmp, int k) { //extrae campos de un archivo csv
     return ret;
 }
 
+
+
 int main() {
+    // Inicialización de la biblioteca
     Biblioteca biblioteca;
     biblioteca.libros = NULL;
     biblioteca.cantidad = 0;
 
 
 
-    
+    // Menú principal del programa
     int opcion;
-    do {
+    do { //mostrar las opciones
         printf("1. Registrar libro\n");
         printf("2. Mostrar datos de libro\n");
         printf("3. Mostrar todos los libros\n");
@@ -357,7 +361,7 @@ int main() {
         printf("0. Salir\n");
         scanf("%d", &opcion);
 
-        switch(opcion) {
+        switch(opcion) {//la opcion seleccionada llama a las funciones
             case 1:
                 registrarLibro(&biblioteca);
                 break;

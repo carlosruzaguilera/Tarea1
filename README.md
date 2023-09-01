@@ -17,4 +17,4 @@ Mostrar libros prestados: Lista todos los libros que están actualmente prestado
 Importar libros desde un archivo CSV: Carga libros desde un archivo CSV al sistema.
 Exportar libros a un archivo CSV: Guarda todos los libros registrados en un archivo CSV.
 
-El programa complete se encuentra en el archivo "main.c"
+El programa complete se encuentra en el archivo "codigo.c"
