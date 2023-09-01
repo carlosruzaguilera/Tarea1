@@ -8,17 +8,17 @@ typedef struct {
     char ISBN[51];
     char ubicacion[51];
     char estado[51];
-    char reservas[255]; // Lista de estudiantes separados por comas
+    char reservas[255]; // lista de estudiantes separados por comas
 } Libro;
 
 typedef struct {
     Libro *libros;
     int cantidad;
 } Biblioteca;
-// Funciones de utilidad
+// funcion para leer csv
 char* get_csv_field(char * tmp, int k);
 // Funciones principales
-void registrarLibro(Biblioteca *biblioteca) {
+void registrarLibro(Biblioteca *biblioteca) {  //permite al usuario ingresar los detalles de un nuevo libro y lo guarda en el csv
     Libro nuevoLibro;
     FILE *archivo;
 
@@ -51,7 +51,7 @@ void registrarLibro(Biblioteca *biblioteca) {
 
     printf("Libro registrado exitosamente en el archivo CSV.\n");
 }
-void mostrarDatosLibro(Biblioteca biblioteca) {
+void mostrarDatosLibro(Biblioteca biblioteca) { //busca un libro por nombre y autro y muestra los detalles
     char tituloBuscado[51];
     char autorBuscado[51];
     char linea[512];
@@ -92,13 +92,13 @@ void mostrarDatosLibro(Biblioteca biblioteca) {
     }
 }
 
-void mostrarTodosLosLibros(Biblioteca biblioteca) {
+void mostrarTodosLosLibros(Biblioteca biblioteca) {//muestra una lista de todos los libros registrados
     printf("Lista de libros registrados:\n");
     for (int i = 0; i < biblioteca.cantidad; i++) {
         printf("%d. Título: %s - Autor: %s\n", i+1, biblioteca.libros[i].titulo, biblioteca.libros[i].autor);
     }
 }
-void reservarLibro(Biblioteca *biblioteca) {
+void reservarLibro(Biblioteca *biblioteca) {// premite reservar un libro escribiendo el nombre de quien hace la reserva
     char tituloBuscado[51];
     char autorBuscado[51];
     char estudiante[51];
@@ -130,7 +130,7 @@ void reservarLibro(Biblioteca *biblioteca) {
         printf("No se encontró el libro con el título '%s' y autor '%s'.\n", tituloBuscado, autorBuscado);
     }
 }
-void cancelarReservaLibro(Biblioteca *biblioteca) {
+void cancelarReservaLibro(Biblioteca *biblioteca) { //permite cancelar una reserva
     char tituloBuscado[51];
     char autorBuscado[51];
     char estudiante[51];
@@ -165,7 +165,7 @@ void cancelarReservaLibro(Biblioteca *biblioteca) {
     }
 }
 
-void retirarLibro(Biblioteca *biblioteca) {
+void retirarLibro(Biblioteca *biblioteca) {//permite buscar un libro y ver si se puede retirar
     char tituloBuscado[51];
     char autorBuscado[51];
     char estudiante[51];
@@ -203,7 +203,7 @@ void retirarLibro(Biblioteca *biblioteca) {
     }
 }
 
-void devolverLibro(Biblioteca *biblioteca) {
+void devolverLibro(Biblioteca *biblioteca) {//permite gestionar la devolucion de los libros
     char tituloBuscado[51];
     char autorBuscado[51];
     int encontrado = 0;
@@ -236,7 +236,7 @@ void devolverLibro(Biblioteca *biblioteca) {
     }
 }
 
-void mostrarLibrosPrestados(Biblioteca biblioteca) {
+void mostrarLibrosPrestados(Biblioteca biblioteca) {// muestra una lista de todos los libros prestados
     printf("Libros actualmente prestados:\n");
     int contador = 0;
     for (int i = 0; i < biblioteca.cantidad; i++) {
@@ -249,7 +249,7 @@ void mostrarLibrosPrestados(Biblioteca biblioteca) {
     }
 }
 
-void importarLibrosDesdeCSV(Biblioteca *biblioteca, char *nombre_archivo) {
+void importarLibrosDesdeCSV(Biblioteca *biblioteca, char *nombre_archivo) {//importa los libros desde un archivo csv y los añade a los libros registrados
     FILE *archivo = fopen(nombre_archivo, "r");
     
     if (!archivo) {
@@ -259,11 +259,11 @@ void importarLibrosDesdeCSV(Biblioteca *biblioteca, char *nombre_archivo) {
 
     char linea[512];
     while (fgets(linea, sizeof(linea), archivo)) {
-        // Eliminar posibles terminaciones \r\n o \n
+        // eliminar posibles terminaciones \r\n o \n
         linea[strcspn(linea, "\r\n")] = 0;
 
         if (strcmp(linea, "Título,Autor,Género,ISBN,Ubicación,Estado,Reservas") == 0) {
-            // Si es el encabezado, continuar con la siguiente línea
+            // si es el encabezado, continuar con la siguiente línea
             continue;
         }
 
@@ -284,7 +284,7 @@ void importarLibrosDesdeCSV(Biblioteca *biblioteca, char *nombre_archivo) {
 
 
 
-void exportarLibrosACSV(Biblioteca biblioteca, char *nombre_archivo) {
+void exportarLibrosACSV(Biblioteca biblioteca, char *nombre_archivo) {//exporta la lista actual de libros a un archivo csv
     FILE *archivo = fopen(nombre_archivo, "w");
     if (!archivo) {
         printf("Error al abrir el archivo %s para escritura.\n", nombre_archivo);
@@ -308,7 +308,7 @@ void exportarLibrosACSV(Biblioteca biblioteca, char *nombre_archivo) {
 }
 
 
-char* get_csv_field(char * tmp, int k) {
+char* get_csv_field(char * tmp, int k) { //extrae campos de un archivo csv
     int open_mark = 0;
     char* ret = (char*) malloc(100 * sizeof(char));
     char* ptr = tmp;
